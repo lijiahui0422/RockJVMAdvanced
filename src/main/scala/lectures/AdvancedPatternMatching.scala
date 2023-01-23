@@ -65,6 +65,28 @@ object AdvancedPatternMatching {
     }
     println(newMathProperty)
 
+    // infix patterns
+    case class Or[A, B](a:A, b:B) // such type is called "Either"
+    val either = Or(2, "two")
+    val humanDescription = either match {
+//      case Or(number, text) => s"$number is written as $text"
+      case number Or text => s"$number is written as $text"
+
+    }
+    println(humanDescription)
+
+    //decomposing sequence
+    val vararg = numbers match {
+      case List(1, _*) => "starting with 1"
+    }
+
+    abstract class MyList[+A] {
+      def head: A = ???
+      def tail: MyList[A] = ???
+    }
+
+    case object Empty extends MyList[Nothing]
+    case class Cons[+A](override val head: A, override val tail: MyList[A]) extends MyList[A]
 
   }
 
