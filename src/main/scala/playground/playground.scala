@@ -45,6 +45,7 @@ object playground {
 //    bufAny(0) = "Hello"
 //    val firstElem: Int = bufInt(0)
 
+    println("I am so ready")
   }
 
 }
