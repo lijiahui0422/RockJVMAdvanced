@@ -1,6 +1,7 @@
 package lectures
 
 import scala.None
+import scala.annotation.tailrec
 
 object AdvancedPatternMatching {
   def main(args: Array[String]): Unit = {
@@ -75,10 +76,12 @@ object AdvancedPatternMatching {
     }
     println(humanDescription)
 
-    //decomposing sequence
-    val vararg = numbers match {
+    //decomposing sequence --- don't  understand why this is needed-- only for customized collections?
+    val newNumbers = List(1)
+    val vararg = newNumbers match {
       case List(1, _*) => "starting with 1"
     }
+    println(vararg)
 
     abstract class MyList[+A] {
       def head: A = ???
@@ -88,6 +91,17 @@ object AdvancedPatternMatching {
     case object Empty extends MyList[Nothing]
     case class Cons[+A](override val head: A, override val tail: MyList[A]) extends MyList[A]
 
+    object MyList {
+      def unapplySeq[A](list: MyList[A]): Option[Seq[A]] = {
+        if (list == Empty) Some(Seq.empty)
+        else unapplySeq(list.tail).map(list.head +: _)
+      }
+    }
+
+    val myList: MyList[Int]= Cons(1, Cons(2, Cons(3, Empty)))
+
+
+    // custom return types for unapply
   }
 
 }
